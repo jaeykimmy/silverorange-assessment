@@ -19,10 +19,15 @@ export function App() {
   console.log(repos);
   return (
     <div className="App">
-      {repos && (
+      {repos.length > 0 && (
         <div>
           {(repos as unknown as any[]).map((x: any) => (
-            <div key={x.id}>{x.name}</div>
+            <>
+              <div key={x.id}>{x.name}</div>
+              <p>{x.description}</p>
+              <p>{x.language}</p>
+              <p>{x.forks_count}</p>
+            </>
           ))}
         </div>
       )}
