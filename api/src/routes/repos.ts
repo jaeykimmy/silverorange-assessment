@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
+import data = require('../../data/repos.json');
 
 export const repos = Router();
-const data = require('../../data/repos.json');
-
+console.log(data);
 repos.get('/', async (_: Request, res: Response) => {
   res.header('Cache-Control', 'no-store');
 
