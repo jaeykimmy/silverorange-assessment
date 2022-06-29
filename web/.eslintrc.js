@@ -68,6 +68,12 @@ const newConfig = Object.assign({}, config, {
       // tslint/recommended.
       return Object.assign({}, override, {
         rules: Object.assign(updateWarnRulesToErrorRules(override.rules), {
+          'prettier/prettier': [
+            'error',
+            {
+              endOfLine: 'auto',
+            },
+          ],
           '@typescript-eslint/adjacent-overload-signatures': 'error',
           '@typescript-eslint/array-type': [
             'error',

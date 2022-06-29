@@ -1,9 +1,15 @@
-import React from 'react';
+import { useEffect } from 'react';
 import logo from './logo.svg';
+import axios from 'axios';
 
 import './App.css';
 
 export function App() {
+  useEffect(() => {
+    axios.get('http://localhost:4000/repos').then((res) => {
+      console.log(res.data);
+    });
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
