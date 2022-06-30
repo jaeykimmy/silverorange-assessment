@@ -6,7 +6,12 @@ export default function Home(props: any) {
       {props.repos.length > 0 && (
         <div>
           {(props.repos as unknown as any[])
-            .slice(0)
+            .sort(function (a, b) {
+              return (
+                new Date(a.created_at).valueOf() -
+                new Date(b.created_at).valueOf()
+              );
+            })
             .reverse()
             .map((x: any) => (
               <>
@@ -14,6 +19,7 @@ export default function Home(props: any) {
                 <p>{x.description}</p>
                 <p>{x.language}</p>
                 <p>{x.forks_count}</p>
+                <p>{x.created_at}</p>
               </>
             ))}
         </div>
