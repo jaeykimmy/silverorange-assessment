@@ -8,6 +8,7 @@ import './App.css';
 
 export function App() {
   const [repos, setRepos] = useState('');
+  const [filterLanguage, setFilterLanguage] = useState([]);
 
   useEffect(() => {
     getRepos();
@@ -19,11 +20,18 @@ export function App() {
       setRepos(res.data);
     });
   };
+
+  const handleButton = (e: any) => {
+    console.log(e.target.value);
+  };
   // console.log(repos);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home repos={repos} />} />
+        <Route
+          path="/"
+          element={<Home repos={repos} handleButton={handleButton} />}
+        />
         <Route path="/repoinfo" element={<RepoInfo repos={repos} />} />
       </Routes>
     </BrowserRouter>
