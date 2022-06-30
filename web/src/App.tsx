@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './components/Home';
+import RepoInfo from './components/RepoInfo';
 import './App.css';
 
 export function App() {
@@ -23,6 +24,7 @@ export function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home repos={repos} />} />
+        <Route path="/repoinfo" element={<RepoInfo repos={repos} />} />
       </Routes>
     </BrowserRouter>
   );

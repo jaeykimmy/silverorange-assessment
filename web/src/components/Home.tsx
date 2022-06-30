@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 export default function Home(props: any) {
   return (
     <div className="App">
@@ -15,7 +15,9 @@ export default function Home(props: any) {
             .reverse()
             .map((x: any) => (
               <>
-                <div key={x.id}>{x.name}</div>
+                <Link to="/repoinfo" key={x.id}>
+                  {x.name}
+                </Link>
                 <p>{x.description}</p>
                 <p>{x.language}</p>
                 <p>{x.forks_count}</p>
