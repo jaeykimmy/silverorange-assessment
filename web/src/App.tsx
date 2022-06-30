@@ -12,23 +12,26 @@ export function App() {
 
   const getRepos = () => {
     axios.get('http://localhost:4000/repos').then((res) => {
-      console.log(res);
+      // console.log(res);
       setRepos(res.data);
     });
   };
-  console.log(repos);
+  // console.log(repos);
   return (
     <div className="App">
       {repos.length > 0 && (
         <div>
-          {(repos as unknown as any[]).map((x: any) => (
-            <>
-              <div key={x.id}>{x.name}</div>
-              <p>{x.description}</p>
-              <p>{x.language}</p>
-              <p>{x.forks_count}</p>
-            </>
-          ))}
+          {(repos as unknown as any[])
+            .slice(0)
+            .reverse()
+            .map((x: any) => (
+              <>
+                <div key={x.id}>{x.name}</div>
+                <p>{x.description}</p>
+                <p>{x.language}</p>
+                <p>{x.forks_count}</p>
+              </>
+            ))}
         </div>
       )}
     </div>
