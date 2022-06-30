@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import Home from './components/Home';
 import './App.css';
 
 export function App() {
@@ -18,22 +20,10 @@ export function App() {
   };
   // console.log(repos);
   return (
-    <div className="App">
-      {repos.length > 0 && (
-        <div>
-          {(repos as unknown as any[])
-            .slice(0)
-            .reverse()
-            .map((x: any) => (
-              <>
-                <div key={x.id}>{x.name}</div>
-                <p>{x.description}</p>
-                <p>{x.language}</p>
-                <p>{x.forks_count}</p>
-              </>
-            ))}
-        </div>
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home repos={repos} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
