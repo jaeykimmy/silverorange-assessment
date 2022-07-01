@@ -3,22 +3,25 @@ import { Link } from 'react-router-dom';
 export default function Home(props: any) {
   return (
     <div className="App">
+      <div className="App">
+        <button value="All" onClick={props.handleButton}>
+          All
+        </button>
+        <button value="PHP" onClick={props.handleButton}>
+          PHP
+        </button>
+        <button value="English" onClick={props.handleButton}>
+          English
+        </button>
+        <button value="French" onClick={props.handleButton}>
+          French
+        </button>
+        <button value="TypeScript" onClick={props.handleButton}>
+          TypeScript
+        </button>
+      </div>
       {props.repos.length > 0 && (
         <div>
-          <div className="App">
-            <button value="PHP" onClick={props.handleButton}>
-              PHP
-            </button>
-            <button value="English" onClick={props.handleButton}>
-              English
-            </button>
-            <button value="French" onClick={props.handleButton}>
-              French
-            </button>
-            <button value="Typescript" onClick={props.handleButton}>
-              Typescript
-            </button>
-          </div>
           {(props.repos as unknown as any[])
             .sort(function (a, b) {
               return (

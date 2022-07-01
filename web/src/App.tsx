@@ -7,8 +7,8 @@ import RepoInfo from './components/RepoInfo';
 import './App.css';
 
 export function App() {
-  const [repos, setRepos] = useState('');
-  const [filterLanguage, setFilterLanguage] = useState([]);
+  const [repos, setRepos] = useState([]);
+  const [filterLanguage, setFilterLanguage] = useState<string[]>([]);
 
   useEffect(() => {
     getRepos();
@@ -23,14 +23,22 @@ export function App() {
 
   const handleButton = (e: any) => {
     console.log(e.target.value);
+
+    if (e.target.value === 'All') {
+      setFilterLanguage(repos);
+    } else {
+      setFilterLanguage(
+        repos.filter((x: any) => x.language === e.target.value)
+      );
+    }
   };
-  // console.log(repos);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path="/"
-          element={<Home repos={repos} handleButton={handleButton} />}
+          element={<Home repos={filterLanguage} handleButton={handleButton} />}
         />
         <Route path="/repoinfo" element={<RepoInfo repos={repos} />} />
       </Routes>
