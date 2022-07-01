@@ -7,7 +7,11 @@ export default function Home(props: any) {
     console.log(commitUrl);
     const response = await axios.get(commitUrl);
     console.log(response.data[0]);
-    alert(response.data[0].author.login);
+    alert(
+      `${response.data[0].commit.author.name}\n
+      ${response.data[0].commit.message}\n
+      ${response.data[0].commit.author.date}`
+    );
   };
   return (
     <div className="App">
