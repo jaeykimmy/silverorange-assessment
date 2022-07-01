@@ -11,14 +11,16 @@ repos.get('/', async (_: Request, res: Response) => {
 
   // TODO: See README.md Task (A). Return repo data here. You’ve got this!
 
-  const apiTwo = await axios
+  const combinedAPI = await axios
     .get('https://api.github.com/users/silverorange/repos')
     .then((response) => {
-      console.log(response.data);
       return response.data
         .concat(data)
         .filter((element: any) => element.fork === false);
+    })
+    .catch((error) => {
+      return error;
     });
 
-  return res.json(apiTwo);
+  return res.json(combinedAPI);
 });
