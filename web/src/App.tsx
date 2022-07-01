@@ -8,6 +8,7 @@ import './App.css';
 
 export function App() {
   const [repos, setRepos] = useState([]);
+
   const [filterLanguage, setFilterLanguage] = useState<string[]>([]);
 
   useEffect(() => {
@@ -22,8 +23,6 @@ export function App() {
   };
 
   const handleButton = (e: any) => {
-    console.log(e.target.value);
-
     if (e.target.value === 'All') {
       setFilterLanguage(repos);
     } else {

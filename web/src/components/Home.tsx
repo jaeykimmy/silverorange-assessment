@@ -1,6 +1,14 @@
 import React from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 export default function Home(props: any) {
+  const getLastCommit = async (commitUrl: string) => {
+    console.log(commitUrl);
+    const response = await axios.get(commitUrl);
+    console.log(response.data[0]);
+    alert(response.data[0].author.login);
+  };
   return (
     <div className="App">
       <div className="App">
@@ -32,7 +40,13 @@ export default function Home(props: any) {
             .reverse()
 
             .map((x: any) => (
-              <>
+              <div
+                onClick={() =>
+                  getLastCommit(x.commits_url.split('{/sha}'[0]).slice(0, 1))
+                }
+                key={x.id}
+                className="card"
+              >
                 <Link to="/repoinfo" key={x.id}>
                   {x.name}
                 </Link>
@@ -40,7 +54,7 @@ export default function Home(props: any) {
                 <p>{x.language}</p>
                 <p>{x.forks_count}</p>
                 <p>{x.created_at}</p>
-              </>
+              </div>
             ))}
         </div>
       )}
