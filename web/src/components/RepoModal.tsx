@@ -16,14 +16,44 @@ const style = {
   p: 4,
 };
 
+function ChildModal(props: any) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  console.log(props.readMe);
+  return (
+    <React.Fragment>
+      <Button onClick={handleOpen}>ReadME</Button>
+      <Modal
+        hideBackdrop={true}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box sx={{ ...style, width: 200 }}>
+          <h2 id="child-modal-title">Text in a child modal</h2>
+          <p id="child-modal-description">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+          </p>
+          <Button onClick={handleClose}>Close ReadME</Button>
+        </Box>
+      </Modal>
+    </React.Fragment>
+  );
+}
+
 export default function RepoModal(props: any) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // console.log(props.title);
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button onClick={handleOpen}>Repo Information</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -32,11 +62,16 @@ export default function RepoModal(props: any) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {props.commitData ? props.commitData.author.name : ''}
+            Author: {props.commitData ? props.commitData.author.name : ''}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            Message: {props.commitData ? props.commitData.message : ''}
           </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Last Commit Date:{' '}
+            {props.commitData ? props.commitData.author.date : ''}
+          </Typography>
+          <ChildModal readMe={props.readMe} />
         </Box>
       </Modal>
     </div>
