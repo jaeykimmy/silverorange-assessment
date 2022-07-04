@@ -8,7 +8,7 @@ import './App.css';
 
 export function App() {
   const [repos, setRepos] = useState([]);
-
+  const [error, setError] = useState(false);
   const [filterLanguage, setFilterLanguage] = useState<string[]>([]);
 
   useEffect(() => {
@@ -16,10 +16,17 @@ export function App() {
   }, []);
 
   const getRepos = () => {
-    axios.get('http://localhost:4000/repos').then((res) => {
-      // console.log(res);
-      setRepos(res.data);
-    });
+    axios
+      .get('http://localhost:4000/repos')
+      .then((res) => {
+        // console.log(res);
+        setError(false);
+        setRepos(res.data);
+        setFilterLanguage(res.data);
+      })
+      .catch(() => {
+        setError(true);
+      });
   };
 
   const handleButton = (e: any) => {
@@ -37,7 +44,15 @@ export function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home repos={filterLanguage} handleButton={handleButton} />}
+          element={
+            error ? (
+              <div>
+                <p>terrible function ran</p>
+              </div>
+            ) : (
+              <Home repos={filterLanguage} handleButton={handleButton} />
+            )
+          }
         />
         <Route path="/repoinfo" element={<RepoInfo repos={repos} />} />
       </Routes>

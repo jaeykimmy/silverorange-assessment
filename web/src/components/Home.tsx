@@ -1,17 +1,28 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import RepoModal from './RepoModal';
+import { useState, useEffect } from 'react';
 
 export default function Home(props: any) {
+  const [commitData, setCommitData] = useState({});
+  const [url, setUrl] = useState('');
+  useEffect(() => {
+    async function anyNameFunction() {
+      await getLastCommit(url);
+    }
+    anyNameFunction();
+  }, [url]);
   const getLastCommit = async (commitUrl: string) => {
     console.log(commitUrl);
+    setUrl(commitUrl);
     const response = await axios.get(commitUrl);
     console.log(response.data[0]);
-    alert(
-      `${response.data[0].commit.author.name}\n
-      ${response.data[0].commit.message}\n
-      ${response.data[0].commit.author.date}`
-    );
+    setCommitData(response.data[0].commit);
+    // alert(
+    //   `${response.data[0].commit.author.name}\n
+    //   ${response.data[0].commit.message}\n
+    //   ${response.data[0].commit.author.date}`
+    // );
   };
   return (
     <div className="App">
@@ -51,13 +62,13 @@ export default function Home(props: any) {
                 key={x.id}
                 className="card"
               >
-                <Link to="/repoinfo" key={x.id}>
-                  {x.name}
-                </Link>
+                <h2>{x.name}</h2>
+
                 <p>{x.description}</p>
                 <p>{x.language}</p>
                 <p>{x.forks_count}</p>
                 <p>{x.created_at}</p>
+                <RepoModal commitData={commitData} />
               </div>
             ))}
         </div>
