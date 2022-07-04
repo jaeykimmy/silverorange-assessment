@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import ReactMarkdown from 'react-markdown';
 
 const style = {
   position: 'absolute',
@@ -10,10 +11,12 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
+  height: '50%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  overflow: 'scroll',
 };
 
 function ChildModal(props: any) {
@@ -35,11 +38,8 @@ function ChildModal(props: any) {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">Text in a child modal</h2>
-          <p id="child-modal-description">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          </p>
+        <Box sx={{ ...style }}>
+          <ReactMarkdown>{props.readMe}</ReactMarkdown>
           <Button onClick={handleClose}>Close ReadME</Button>
         </Box>
       </Modal>
