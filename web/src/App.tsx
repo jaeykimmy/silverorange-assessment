@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './components/Home';
-import RepoModal from './components/RepoModal';
+
 import './App.css';
 
 export function App() {
@@ -40,22 +39,14 @@ export function App() {
   };
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            error ? (
-              <div>
-                <p>terrible function ran</p>
-              </div>
-            ) : (
-              <Home repos={filterLanguage} handleButton={handleButton} />
-            )
-          }
-        />
-        <Route path="/repoinfo" element={<RepoModal repos={repos} />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      {error ? (
+        <div>
+          <h1>There was an error!</h1>
+        </div>
+      ) : (
+        <Home repos={filterLanguage} handleButton={handleButton} />
+      )}
+    </div>
   );
 }
