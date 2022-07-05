@@ -1,8 +1,7 @@
-import React from 'react';
 import axios from 'axios';
 import RepoModal from './RepoModal';
 import { useState, useEffect } from 'react';
-
+import { Card, CardContent, Typography, Box } from '@mui/material';
 export default function Home(props: any) {
   const [commitData, setCommitData] = useState([]);
   const [url, setUrl] = useState('');
@@ -29,7 +28,7 @@ export default function Home(props: any) {
     setReadMe(response.data);
     // console.log(response.data);
   };
-
+  console.log(commitData);
   return (
     <div className="App">
       <div className="App">
@@ -59,25 +58,46 @@ export default function Home(props: any) {
               );
             })
             .reverse()
-
             .map((x: any) => (
-              <div
-                onClick={() => {
-                  getLastCommit(x.commits_url.split('{/sha}'[0]).slice(0, 1));
-                  getReadMe(x.full_name);
-                }}
-                key={x.id}
-                className="card"
-              >
-                <h2>{x.name}</h2>
-
-                <p>{x.description}</p>
-                <p>Language: {x.language}</p>
-                <p>Forks: {x.forks_count}</p>
-                <p>Created at: {x.created_at}</p>
-
-                <RepoModal commitData={commitData} readMe={readMe} />
-              </div>
+              <Box key={x.id} m={2} pt={3}>
+                <Card
+                  onClick={() => {
+                    getLastCommit(x.commits_url.split('{/sha}'[0]).slice(0, 1));
+                    getReadMe(x.full_name);
+                  }}
+                  key={x.id}
+                  className="card"
+                  variant="outlined"
+                >
+                  <CardContent>
+                    <Typography variant="h5" component="div">
+                      {x.name}
+                    </Typography>
+                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                      {x.language}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 1.5 }}>
+                      {x.description}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 1.5 }}>
+                      Forks: {x.forks_count}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 1.5 }}>
+                      Created at: {x.created_at}
+                    </Typography>
+                    {x.language !== 'English' ? (
+                      <RepoModal
+                        commitData={commitData}
+                        readMe={readMe}
+                        getLastCommit={getLastCommit}
+                        getReadMe={getReadMe}
+                      />
+                    ) : (
+                      ''
+                    )}
+                  </CardContent>
+                </Card>
+              </Box>
             ))}
         </div>
       )}

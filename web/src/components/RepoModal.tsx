@@ -27,7 +27,7 @@ function ChildModal(props: any) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(props.readMe);
+  // console.log(props.readMe);
   return (
     <React.Fragment>
       <Button onClick={handleOpen}>ReadME</Button>
@@ -72,6 +72,7 @@ export default function RepoModal(props: any) {
             {props.commitData ? props.commitData.author.date : ''}
           </Typography>
           <ChildModal readMe={props.readMe} />
+          <Button onClick={handleClose}>Close</Button>
         </Box>
       </Modal>
     </div>
