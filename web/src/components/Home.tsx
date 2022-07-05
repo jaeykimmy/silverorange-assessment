@@ -28,7 +28,7 @@ export default function Home(props: any) {
     setReadMe(response.data);
     // console.log(response.data);
   };
-  console.log(commitData);
+  // console.log(commitData);
   return (
     <div className="App">
       <div className="App">
@@ -60,15 +60,7 @@ export default function Home(props: any) {
             .reverse()
             .map((x: any) => (
               <Box key={x.id} m={2} pt={3}>
-                <Card
-                  onClick={() => {
-                    getLastCommit(x.commits_url.split('{/sha}'[0]).slice(0, 1));
-                    getReadMe(x.full_name);
-                  }}
-                  key={x.id}
-                  className="card"
-                  variant="outlined"
-                >
+                <Card key={x.id} className="card" variant="outlined">
                   <CardContent>
                     <Typography variant="h5" component="div">
                       {x.name}
@@ -85,15 +77,22 @@ export default function Home(props: any) {
                     <Typography variant="body2" sx={{ mb: 1.5 }}>
                       Created at: {x.created_at}
                     </Typography>
-                    {x.language !== 'English' ? (
-                      <RepoModal
-                        commitData={commitData}
-                        readMe={readMe}
-                        getLastCommit={getLastCommit}
-                        getReadMe={getReadMe}
-                      />
-                    ) : (
-                      ''
+                    {(x.language === 'PHP' || x.language === 'TypeScript') && (
+                      <div
+                        onClick={() => {
+                          getLastCommit(
+                            x.commits_url.split('{/sha}'[0]).slice(0, 1)
+                          );
+                          getReadMe(x.full_name);
+                        }}
+                      >
+                        <RepoModal
+                          commitData={commitData}
+                          readMe={readMe}
+                          getLastCommit={getLastCommit}
+                          getReadMe={getReadMe}
+                        />
+                      </div>
                     )}
                   </CardContent>
                 </Card>
