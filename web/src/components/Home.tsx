@@ -1,52 +1,63 @@
 import axios from 'axios';
 import RepoModal from './RepoModal';
 import { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Box } from '@mui/material';
+import { Card, CardContent, Typography, Box, Button } from '@mui/material';
 export default function Home(props: any) {
   const [commitData, setCommitData] = useState([]);
   const [url, setUrl] = useState('');
   const [readMe, setReadMe] = useState('');
 
   useEffect(() => {
-    async function anyNameFunction() {
-      await getLastCommit(url);
-    }
-    anyNameFunction();
+    getLastCommit(url);
   }, [url]);
+
   const getLastCommit = async (commitUrl: string) => {
-    // console.log(commitUrl);
     setUrl(commitUrl);
     const response = await axios.get(commitUrl);
-    // console.log(response.data[0]);
+
     setCommitData(response.data[0].commit);
   };
   const getReadMe = async (link: string) => {
-    // console.log(link);
     const response = await axios.get(
       `https://raw.githubusercontent.com/${link}/master/README.md`
     );
     setReadMe(response.data);
-    // console.log(response.data);
   };
-  // console.log(commitData);
+
   return (
     <div className="App">
+      <h2>silverorange Intermediate Developer Assessment</h2>
       <div className="App">
-        <button value="All" onClick={props.handleButton}>
-          All
-        </button>
-        <button value="PHP" onClick={props.handleButton}>
-          PHP
-        </button>
-        <button value="English" onClick={props.handleButton}>
-          English
-        </button>
-        <button value="French" onClick={props.handleButton}>
-          French
-        </button>
-        <button value="TypeScript" onClick={props.handleButton}>
-          TypeScript
-        </button>
+        Filter by Language
+        <Box display="flex" justifyContent="space-evenly" m={2}>
+          <Button variant="contained" value="All" onClick={props.handleButton}>
+            All
+          </Button>
+          <Button variant="contained" value="PHP" onClick={props.handleButton}>
+            PHP
+          </Button>
+          <Button
+            variant="contained"
+            value="English"
+            onClick={props.handleButton}
+          >
+            English
+          </Button>
+          <Button
+            variant="contained"
+            value="French"
+            onClick={props.handleButton}
+          >
+            French
+          </Button>
+          <Button
+            variant="contained"
+            value="TypeScript"
+            onClick={props.handleButton}
+          >
+            TypeScript
+          </Button>
+        </Box>
       </div>
       {props.repos.length > 0 && (
         <div>

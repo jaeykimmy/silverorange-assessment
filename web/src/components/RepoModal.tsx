@@ -27,7 +27,7 @@ function ChildModal(props: any) {
   const handleClose = () => {
     setOpen(false);
   };
-  // console.log(props.readMe);
+
   return (
     <React.Fragment>
       <Button onClick={handleOpen}>ReadME</Button>

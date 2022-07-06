@@ -18,7 +18,6 @@ export function App() {
     axios
       .get('http://localhost:4000/repos')
       .then((res) => {
-        // console.log(res);
         setError(false);
         setRepos(res.data);
         setFilterLanguage(res.data);
