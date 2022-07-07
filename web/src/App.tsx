@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Button } from '@mui/material';
 
 import Home from './components/Home';
 
@@ -37,11 +38,16 @@ export function App() {
     }
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   return (
     <div>
       {error ? (
         <div>
           <h1>There was an error!</h1>
+          <Button onClick={refreshPage}>Refresh</Button>
         </div>
       ) : (
         <Home repos={filterLanguage} handleButton={handleButton} />
