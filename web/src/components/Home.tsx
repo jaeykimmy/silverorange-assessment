@@ -1,8 +1,7 @@
 import axios from 'axios';
-import RepoModal from './RepoModal';
 import { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Box } from '@mui/material';
 import LanguageButtons from './LanguageButtons';
+import RepoInfo from './RepoInfo';
 
 export default function Home(props: any) {
   const [commitData, setCommitData] = useState([]);
@@ -25,7 +24,6 @@ export default function Home(props: any) {
     );
     setReadMe(response.data);
   };
-
   return (
     <div className="App">
       <h2>silverorange Intermediate Developer Assessment</h2>
@@ -44,44 +42,14 @@ export default function Home(props: any) {
             })
             .reverse()
             .map((x: any) => (
-              <Box key={x.id} m={2} pt={3}>
-                <Card key={x.id} className="card" variant="outlined">
-                  <CardContent>
-                    <Typography variant="h5" component="div">
-                      {x.name}
-                    </Typography>
-                    <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                      {x.language}
-                    </Typography>
-                    <Typography variant="body2" sx={{ mb: 1.5 }}>
-                      {x.description}
-                    </Typography>
-                    <Typography variant="body2" sx={{ mb: 1.5 }}>
-                      Forks: {x.forks_count}
-                    </Typography>
-                    <Typography variant="body2" sx={{ mb: 1.5 }}>
-                      Created at: {x.created_at}
-                    </Typography>
-                    {(x.language === 'PHP' || x.language === 'TypeScript') && (
-                      <div
-                        onClick={() => {
-                          getLastCommit(
-                            x.commits_url.split('{/sha}'[0]).slice(0, 1)
-                          );
-                          getReadMe(x.full_name);
-                        }}
-                      >
-                        <RepoModal
-                          commitData={commitData}
-                          readMe={readMe}
-                          getLastCommit={getLastCommit}
-                          getReadMe={getReadMe}
-                        />
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </Box>
+              <RepoInfo
+                key={x.id}
+                repo={x}
+                getLastCommit={getLastCommit}
+                getReadMe={getReadMe}
+                commitData={commitData}
+                readMe={readMe}
+              />
             ))}
         </div>
       )}
