@@ -1,7 +1,9 @@
 import axios from 'axios';
 import RepoModal from './RepoModal';
 import { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, Box, Button } from '@mui/material';
+import { Card, CardContent, Typography, Box } from '@mui/material';
+import LanguageButtons from './LanguageButtons';
+
 export default function Home(props: any) {
   const [commitData, setCommitData] = useState([]);
   const [url, setUrl] = useState('');
@@ -23,29 +25,13 @@ export default function Home(props: any) {
     );
     setReadMe(response.data);
   };
-  const languages = ['All', 'PHP', 'TypeScript', 'English', 'French'];
+
   return (
     <div className="App">
       <h2>silverorange Intermediate Developer Assessment</h2>
       <div className="App">
         Filter by Language
-        <Box
-          display="flex"
-          justifyContent="space-evenly"
-          flexDirection="row"
-          m={2}
-        >
-          {languages.map((language) => (
-            <Button
-              variant="contained"
-              value={language}
-              onClick={props.handleButton}
-              key={language}
-            >
-              {language}
-            </Button>
-          ))}
-        </Box>
+        <LanguageButtons handleButton={props.handleButton} />
       </div>
       {props.repos.length > 0 && (
         <div>
