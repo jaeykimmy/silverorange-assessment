@@ -23,40 +23,28 @@ export default function Home(props: any) {
     );
     setReadMe(response.data);
   };
-
+  const languages = ['All', 'PHP', 'TypeScript', 'English', 'French'];
   return (
     <div className="App">
       <h2>silverorange Intermediate Developer Assessment</h2>
       <div className="App">
         Filter by Language
-        <Box display="flex" justifyContent="space-evenly" m={2}>
-          <Button variant="contained" value="All" onClick={props.handleButton}>
-            All
-          </Button>
-          <Button variant="contained" value="PHP" onClick={props.handleButton}>
-            PHP
-          </Button>
-          <Button
-            variant="contained"
-            value="English"
-            onClick={props.handleButton}
-          >
-            English
-          </Button>
-          <Button
-            variant="contained"
-            value="French"
-            onClick={props.handleButton}
-          >
-            French
-          </Button>
-          <Button
-            variant="contained"
-            value="TypeScript"
-            onClick={props.handleButton}
-          >
-            TypeScript
-          </Button>
+        <Box
+          display="flex"
+          justifyContent="space-evenly"
+          flexDirection="row"
+          m={2}
+        >
+          {languages.map((language) => (
+            <Button
+              variant="contained"
+              value={language}
+              onClick={props.handleButton}
+              key={language}
+            >
+              {language}
+            </Button>
+          ))}
         </Box>
       </div>
       {props.repos.length > 0 && (
